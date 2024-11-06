@@ -19,3 +19,4 @@ print(s)
 
 
 #<div class="player-stat__value">7</div>
+print("test")
