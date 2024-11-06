@@ -1,22 +1,33 @@
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+import pandas as pd
 
-r = requests.get('https://www.chelseafc.com/en/teams/profile/cole-palmer')
+wait = WebDriverWait(webdriver, 20)
 
-print("Success Code" + str(r))
+driver = webdriver.Chrome()
 
-soup = BeautifulSoup(r.content, 'html.parser')
+driver.get("https://www.chelseafc.com/en/teams/profile/cole-palmer")
 
-s = soup.find('div', class_='player-stat__value')
-print(s)
-#matches = s.find_all('img')
+title = driver.title
 
-#print(matches)
+driver.implicitly_wait(0.5)
 
-#print(soup.prettify())
+goals_scored = driver.find_elements(By.CLASS_NAME, value="player-stat__title")
 
-#print(r.content)
+print(len(goals_scored))
+
+i = 0
+for goal in goals_scored:
+    
+    print("index" + str(i))
+    print(goal.text)
+    i+=1
 
 
-#<div class="player-stat__value">7</div>
-print("test")
+#print("GOALS: " + str(goals_scored))
+
+print(title)
+
+driver.quit()
